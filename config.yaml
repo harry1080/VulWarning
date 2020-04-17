@@ -4,6 +4,6 @@ mysql:
   pass: "123456"
   name: vulwarning
   charset: utf8mb4
-pusher: https://open.feishu.cn/open-apis/bot/hook/491e0d2bf75e45ac8c99899d7ae5a89a
+pusher: https://open.feishu.cn/open-apis/bot/hook/$key
 server:
   debug: true

@@ -2,5 +2,4 @@
 
 - [x] Aliyun
 - [x] Cert360
-
-- [ ] 特征提取
+- [x] TencentTI

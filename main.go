@@ -9,8 +9,7 @@ import (
 )
 
 var (
-	logger *logrus.Logger
-	// logger     = initLogger("itm.log", logrus.InfoLevel)
+	logger     *logrus.Logger
 	err        error
 	debug      bool = false
 	signalChan chan os.Signal
@@ -66,6 +65,6 @@ func main() {
 	signalChan = make(chan os.Signal)
 	signal.Notify(signalChan, os.Interrupt)
 	sig := <-signalChan
-	logger.Println("Get Signal:", sig)
+	logger.Debugln("Get Signal:", sig)
 	logger.Println("Shutdown")
 }
