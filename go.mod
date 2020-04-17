@@ -24,4 +24,5 @@ require (
 	github.com/tidwall/gjson v1.3.2
 	github.com/yanyiwu/gojieba v1.1.0
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+	gopkg.in/yaml.v2 v2.2.2
 )

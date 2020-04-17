@@ -3,7 +3,7 @@ ARCHS=amd64 386
 LDFLAGS="-s -w"
 GCFLAGS="all=-trimpath=$(shell pwd)"
 ASMFLAGS="all=-trimpath=$(shell pwd)"
-APPNAME=vulWaring
+APPNAME=vulwarning
 
 current:
 	@mkdir -p ${TARGET}/

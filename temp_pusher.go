@@ -18,5 +18,5 @@ func pushFeishuMessage(title, text string) {
 		logger.Errorln(err)
 		return
 	}
-	go httpJSON(FeishuCustomBot, map[string]string{"json": string(data)})
+	go httpJSON(conf.Pusher, map[string]string{"json": string(data)})
 }

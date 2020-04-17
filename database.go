@@ -16,7 +16,7 @@ var (
 // Warings 模型
 type Warings struct {
 	ID       uint   `gorm:"primary_key;AUTO_INCREMENT;not null"`
-	Link     string `gorm:"type:text;unique"` // 情报链接
+	Link     string `gorm:"type:varchar(250);unique_index"` // 情报链接
 	Index    string `gorm:"type:varchar(255)"`
 	Title    string `gorm:"type:varchar(255)"`
 	From     string `gorm:"type:varchar(255)"` // 情报平台
@@ -28,23 +28,23 @@ type Warings struct {
 
 func initDatabase() {
 	var err error
-	conn, err = gorm.Open("mysql", DSN)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&parseTime=True&loc=Local",
+		conf.MySQL.User, conf.MySQL.Pass, conf.MySQL.Host, conf.MySQL.Name, conf.MySQL.Charset,
+	)
+	conn, err = gorm.Open("mysql", dsn)
 	if err != nil {
 		log.Fatalln("Open MySQL Failed : ", err)
 		return
 	}
 
-	conn.LogMode(false)
+	conn.LogMode(conf.Server.Debug)
 
 	conn.DB().SetConnMaxLifetime(100 * time.Second) //最大连接周期，超过时间的连接就close
 	conn.DB().SetMaxOpenConns(100)                  //设置最大连接数
 	conn.DB().SetMaxIdleConns(16)                   //设置闲置连接数
 
 	// conn.DropTableIfExists(&Warings{})
-	if !conn.HasTable(&Warings{}) {
-		conn.CreateTable(&Warings{})
-		conn.AutoMigrate(&Warings{})
-	}
+	conn.CreateTable(&Warings{})
 }
 
 func addWarings(ws []*Warings) (err error) {
@@ -66,23 +66,4 @@ From : %s  `, w.Desc, w.Time, w.Link, w.From)
 	}
 	tx.Commit()
 	return nil
-}
-
-// CreateWarings 添加记录
-func CreateWarings(title, link, from, _timeFormat, _time string) Warings {
-	t, err := time.Parse(_timeFormat, _time)
-	if err != nil {
-		log.Println(err.Error())
-		t = time.Now()
-	}
-	var w Warings
-	conn.FirstOrCreate(&w, Warings{
-		Title:    title,
-		Link:     link,
-		From:     from,
-		Time:     t,
-		CreateAt: time.Now(),
-	})
-	conn.Save(&w)
-	return w
 }
