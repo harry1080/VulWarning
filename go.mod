@@ -14,8 +14,12 @@ require (
 	github.com/jinzhu/gorm v1.9.10
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
+	github.com/mmcdole/gofeed v1.0.0-beta2
+	github.com/mmcdole/goxpp v0.0.0-20181012175147-0068e33feabf // indirect
+	github.com/robfig/cron v1.2.0
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/sbzhu/weworkapi_golang v0.0.0-20190918105118-de025776164a
+	github.com/sirupsen/logrus v1.2.0
 	github.com/temoto/robotstxt v1.1.1 // indirect
 	github.com/tidwall/gjson v1.3.2
 	github.com/yanyiwu/gojieba v1.1.0

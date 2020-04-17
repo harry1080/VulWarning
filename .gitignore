@@ -37,4 +37,6 @@
 # End of https://www.gitignore.io/api/go,visualstudiocode
 
 build
+tmp
+nlp
 *.bak
