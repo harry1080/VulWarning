@@ -23,7 +23,7 @@ func (p *PluginTencentTi) Crawl() error {
 	p.c = newCustomCollector([]string{"security.tencent.com"})
 
 	p.c.OnRequest(func(r *colly.Request) {
-		logger.Println("Crawling [TencentTi]", r.URL)
+		logger.Debugln("Crawling [TencentTi]", r.URL)
 	})
 
 	p.c.OnHTML("div.user_body", func(e *colly.HTMLElement) {
@@ -50,7 +50,6 @@ func (p *PluginTencentTi) Crawl() error {
 	p.c.OnHTML("tbody > tr > td", func(e *colly.HTMLElement) {
 		link := e.Request.AbsoluteURL(e.ChildAttr("a[href]", "href"))
 		if strings.Contains(link, "update_detail") {
-			// logger.Debugln(link)
 			p.c.Visit(link)
 		}
 	})

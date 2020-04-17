@@ -59,7 +59,7 @@ func addWarings(ws []*Warings) (err error) {
 			text := fmt.Sprintf(`%s
 Time : %v
 Url  : %s  
-From : %s  `, w.Desc, w.Time, w.Link, w.From)
+From : %s  `, w.Desc, w.Time.Format("2006-01-02 15:04:05"), w.Link, w.From)
 			logger.Debugln(text)
 			pushFeishuMessage(w.Title, text)
 		}

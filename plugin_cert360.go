@@ -59,7 +59,6 @@ func (p *PluginCert360) Crawl() error {
 				CreateAt: time.Now(),
 			})
 			logger.Debugln("Crwaled [Cert360]", title, _time)
-			// c.Visit(link)
 		}
 	}
 	return nil

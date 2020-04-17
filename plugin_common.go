@@ -1,6 +1,8 @@
 package main
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"log"
 	"time"
 
@@ -18,6 +20,7 @@ func getPlugins() []string {
 		"aliyun",
 		"cert360",
 		"tencentti",
+		"qianxinti",
 	}
 }
 
@@ -29,6 +32,8 @@ func pluginFactry(name string) Plugin {
 		return &PluginCert360{}
 	case "tencentti":
 		return &PluginTencentTi{}
+	case "qianxinti":
+		return &PluginQianxinTi{}
 	default:
 		return nil
 	}
@@ -61,6 +66,13 @@ func getTime(_timeFormat, _time string) time.Time {
 	return t
 }
 
+// MD5 -
+func MD5(text string) string {
+	ctx := md5.New()
+	_, _ = ctx.Write([]byte(text))
+	return hex.EncodeToString(ctx.Sum(nil))
+}
+
 func getFeature(content string) {
 	// TODO: getFeature
 	/*
@@ -75,20 +87,8 @@ func getFeature(content string) {
 	*/
 }
 
-func qianxinTi() {
-	// TODO: https://ti.qianxin.com/advisory/
-}
-
 func secThief() {
 	// TODO: https://sec.thief.one/atom.xml
-}
-
-func cnnvd() {
-	// TODO: http://www.cnnvd.org.cn/web/cnnvdnotice/querylist.tag
-}
-
-func anquanke() {
-	// TODO: https://www.anquanke.com/tag/%E6%BC%8F%E6%B4%9E%E9%A2%84%E8%AD%A6
 }
 
 func freebuf() {

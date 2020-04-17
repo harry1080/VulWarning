@@ -63,3 +63,7 @@ clean:
 	@rm -rf ${TARGET}/* ; \
 	go clean ./... ; \
 	echo "Done."
+
+
+deploy: linux
+	@./deploy.sh

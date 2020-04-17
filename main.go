@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"os"
 	"os/signal"
 
@@ -10,7 +9,8 @@ import (
 )
 
 var (
-	logger     = initLogger("itm.log", logrus.InfoLevel)
+	logger *logrus.Logger
+	// logger     = initLogger("itm.log", logrus.InfoLevel)
 	err        error
 	debug      bool = false
 	signalChan chan os.Signal
@@ -32,22 +32,22 @@ func doJob() {
 }
 
 func init() {
-	flag.BoolVar(&debug, "debug", false, "this help")
+	if os.Getenv("DEBUG") == "1" || os.Getenv("DEBUG") == "true" {
+		debug = true
+		conf.Server.Debug = debug
+		logger = initLogger("itm.log", logrus.DebugLevel)
+		logger.Debugln("Debug Mode Running...")
+	} else {
+		logger = initLogger("itm.log", logrus.InfoLevel)
+	}
 }
 
 func main() {
-	flag.Parse()
 	err = loadConfig()
 	if err != nil {
 		logger.Errorln(err)
 		return
 	}
-
-	if debug {
-		logger.Debugln("Debug Mode Running...")
-		conf.Server.Debug = debug
-	}
-
 	initDatabase()
 
 	if debug {

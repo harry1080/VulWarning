@@ -23,7 +23,7 @@ func (p *PluginAliyun) Crawl() error {
 	p.c = newCustomCollector([]string{"help.aliyun.com"})
 
 	p.c.OnRequest(func(r *colly.Request) {
-		logger.Println("Crawling [Aliyun]", r.URL)
+		logger.Debugln("Crawling [Aliyun]", r.URL)
 	})
 
 	p.c.OnHTML("div#se-knowledge", func(e *colly.HTMLElement) {
@@ -36,7 +36,6 @@ func (p *PluginAliyun) Crawl() error {
 				for _, w := range p.res {
 					if w.Link == e.Request.URL.String() {
 						w.Desc = ee.Text
-						// logger.Debugln(w)
 						break
 					}
 				}
@@ -64,7 +63,5 @@ func (p *PluginAliyun) Crawl() error {
 	})
 	p.c.Visit("https://help.aliyun.com/noticelist/9213612.html")
 	p.c.Wait()
-
-	// logger.Debugln(p.res)
 	return nil
 }
